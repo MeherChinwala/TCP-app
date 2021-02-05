@@ -10,7 +10,7 @@
 int main(int argc, char* argv[])
 {
     int sockfd, portno, n;
-    char buffer[65536];
+    char buffer[500];
 
     struct sockaddr_in serv_addr;
     struct hostent* server;
@@ -29,17 +29,12 @@ int main(int argc, char* argv[])
     connect(sockfd, (struct sockaddr*) &serv_addr, sizeof(serv_addr));
 
     while(1){
-        bzero(buffer, 65536);
-        fgets(buffer, 65536, stdin);
-
+        bzero(buffer, 500);
+        fgets(buffer, 500, stdin);
         write(sockfd, buffer, strlen(buffer));
-
-        bzero(buffer, 65536);
-
-        read(sockfd, buffer, 65536);
-
-        printf("Server : %s\n", buffer);        
-
+        bzero(buffer, 500);
+        read(sockfd, buffer, 500);
+        printf("Server : %s\n", buffer);
         if(strncmp("bye", buffer, 3)==0)break;
     }
 

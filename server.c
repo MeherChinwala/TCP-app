@@ -9,7 +9,7 @@
 int main(int argc, char* argv[])
 {
     int sockfd, newsockfd, portno, n;
-    char buffer[65536];
+    char buffer[500];
 
     struct sockaddr_in serv_addr, cli_addr;
     socklen_t clilen;
@@ -32,16 +32,12 @@ int main(int argc, char* argv[])
     newsockfd = accept(sockfd, (struct sockaddr*) &cli_addr, &clilen);
 
     while(1){
-        bzero(buffer, 65536);
-        read(newsockfd, buffer, 65536);
-
+        bzero(buffer, 500);
+        read(newsockfd, buffer, 500);
         printf("Client : %s\n", buffer);
-
-        bzero(buffer, 65536);
-        fgets(buffer, 65536, stdin);
-
+        bzero(buffer, 500);
+        fgets(buffer, 500, stdin);
         write(newsockfd, buffer, strlen(buffer));
-
         if(strncmp("bye", buffer, 3)==0)break;
     }
 
